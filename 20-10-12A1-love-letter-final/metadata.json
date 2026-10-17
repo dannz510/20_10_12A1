@@ -1,0 +1,6 @@
+{
+  "name": "20/10 Lớp 12A1 — A Love Letter in Motion",
+  "description": "Món quà bất ngờ và hành trình 3D lãng mạn dành tặng những cô gái tuyệt vời của lớp 12A1 nhân ngày Phụ nữ Việt Nam 20/10.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

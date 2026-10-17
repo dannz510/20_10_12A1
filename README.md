@@ -2,18 +2,7 @@
 
 Món quà bất ngờ 3D lãng mạn dành tặng các bạn nữ lớp **12A1** nhân ngày Phụ nữ Việt Nam 20/10.
 
-Một hành trình điện ảnh liền mạch với:
-
-- Cầu ngọc phát sáng & dải ngân hà hạt bụi
-- Vườn hoa anh đào + cánh hoa rơi parallax
-- Thư viện ảnh 3D xoay (constellation / cylinder)
-- Hiệu ứng bung hoa khi chạm màn hình
-- Phong bì 3D mở ra + lá thư đầy đủ
-- Trái tim ánh sáng cuối cùng
-- Âm nhạc lãng mạn + hỗ trợ tải file audio thủ công
-- OrbitControls: xoay / kéo / zoom mượt
-
-## Chạy dự án
+## Chạy local
 
 ```bash
 npm install --legacy-peer-deps
@@ -22,27 +11,39 @@ npm run dev
 
 Mở http://localhost:3000
 
-## Thêm ảnh kỷ niệm
+## Deploy Vercel (quan trọng về ảnh)
 
-Đặt ảnh vào `src/assets/images/` rồi cập nhật `src/data/galleryData.ts`.
+Ảnh nằm trong thư mục **`public/assets/images/`** (không phải `src/assets`).
 
-Hoặc dùng nút upload trong modal ảnh khi đang xem gallery.
+Đường dẫn đúng trong code:
+```
+/assets/images/class12a1/ten_anh.jpg
+```
+
+**Không** dùng `/src/assets/...` — path đó chỉ chạy được lúc `npm run dev`, khi build production trên Vercel sẽ **404**.
+
+### Cách deploy
+
+1. Push project lên GitHub (bao gồm thư mục `public/`)
+2. Import repo vào Vercel
+3. Framework Preset: **Vite**
+4. Build Command: `npm run build` (hoặc `vite build`)
+5. Output Directory: `dist`
+6. Install Command: `npm install --legacy-peer-deps`
+
+Sau khi deploy xong, mở trang → Scene 3 (gallery) sẽ load đủ ảnh các bạn.
+
+Nếu vẫn không thấy ảnh:
+- Hard refresh (Ctrl+Shift+R)
+- Xóa localStorage của domain Vercel (DevTools → Application → Local Storage → Clear)
+- Kiểm tra Network tab xem request `/assets/images/...` có 200 không
+
+## Thêm ảnh
+
+1. Đặt file vào `public/assets/images/class12a1/`
+2. Thêm entry trong `src/data/galleryData.ts` với `imageUrl: '/assets/images/class12a1/ten-file.jpg'`
+3. Commit + push → Vercel tự deploy lại
 
 ## Âm nhạc
 
-- Mặc định: nhạc piano/synth procedurally generated (không cần file).
-- Muốn dùng bài hát riêng: bấm icon đĩa vinyl → Upload → chọn file MP3/WAV từ máy.
-- File chỉ chạy local trong trình duyệt, không upload lên server.
-
-## Tùy chỉnh chữ
-
-Sửa nội dung trong:
-
-- `src/components/SceneNarrative.tsx` (tiêu đề từng cảnh)
-- `src/components/LetterModal.tsx` (nội dung lá thư đầy đủ)
-
-## Lưu ý
-
-- Cần trình duyệt hỗ trợ WebGL (Chrome / Edge / Safari / Firefox hiện đại).
-- Trên điện thoại: vuốt để xoay, chạm để bung hoa, pinch để zoom.
-- Tự động chuyển cảnh mỗi ~14 giây sau lần chạm đầu tiên (có thể bấm mũi tên hoặc chấm nhỏ để nhảy cảnh).
+- Nút vinyl góc phải → Upload MP3/WAV từ máy (chạy local, không upload server)
