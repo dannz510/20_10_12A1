@@ -17,7 +17,7 @@ export const INITIAL_MEMORIES: MemoryPhoto[] = [
   {
     id: 'girl-anh-thu',
     imageUrl: '/assets/images/class12a1/anh_thu.jpg',
-    title: 'Anh Thư',
+    title: 'Lê Vũ Anh Thư',
     caption: 'Nụ cười rạng rỡ của Anh Thư luôn mang đến năng lượng tích cực cho cả lớp. Chúc bạn 20/10 thật hạnh phúc và xinh đẹp!',
     date: '20/10/2026',
     author: '12A1',
@@ -25,7 +25,7 @@ export const INITIAL_MEMORIES: MemoryPhoto[] = [
   {
     id: 'girl-bich-huyen',
     imageUrl: '/assets/images/class12a1/bich_huyen.jpg',
-    title: 'Bích Huyền',
+    title: 'Trần Ngọc Bích Huyền',
     caption: 'Bích Huyền dịu dàng như những cánh hoa. Mong bạn luôn giữ được nét duyên dáng và sự tự tin riêng của mình.',
     date: '20/10/2026',
     author: '12A1',
@@ -33,7 +33,7 @@ export const INITIAL_MEMORIES: MemoryPhoto[] = [
   {
     id: 'girl-chau-thu',
     imageUrl: '/assets/images/class12a1/chau_thu.jpg',
-    title: 'Châu Thư',
+    title: 'Nguyễn Văn Châu Thư',
     caption: 'Châu Thư — ánh mắt trong veo và nụ cười tươi tắn. Chúc bạn một ngày 20/10 ngập tràn yêu thương!',
     date: '20/10/2026',
     author: '12A1',
@@ -41,7 +41,7 @@ export const INITIAL_MEMORIES: MemoryPhoto[] = [
   {
     id: 'girl-gia-linh',
     imageUrl: '/assets/images/class12a1/gia_linh.jpg',
-    title: 'Gia Linh',
+    title: 'Trần Gia Linh',
     caption: 'Gia Linh luôn tỏa sáng theo cách riêng. Cảm ơn bạn vì đã là một phần không thể thiếu của 12A1.',
     date: '20/10/2026',
     author: '12A1',
@@ -49,7 +49,7 @@ export const INITIAL_MEMORIES: MemoryPhoto[] = [
   {
     id: 'girl-gia-thanh',
     imageUrl: '/assets/images/class12a1/gia_thanh.jpg',
-    title: 'Gia Thành',
+    title: 'Nguyễn Vũ Gia Thành',
     caption: 'Gia Thành rực rỡ và đầy sức sống. Chúc bạn luôn tự tin bước tới những ước mơ của mình!',
     date: '20/10/2026',
     author: '12A1',
@@ -57,7 +57,7 @@ export const INITIAL_MEMORIES: MemoryPhoto[] = [
   {
     id: 'girl-h-thuy-duong',
     imageUrl: '/assets/images/class12a1/h_thuy_duong.jpg',
-    title: 'H. Thùy Dương',
+    title: 'Hoàng Nguyễn Thùy Dương',
     caption: 'Thùy Dương dịu dàng, ấm áp như ánh nắng ban mai. 20/10 chúc bạn luôn được yêu thương và trân trọng.',
     date: '20/10/2026',
     author: '12A1',
@@ -65,7 +65,7 @@ export const INITIAL_MEMORIES: MemoryPhoto[] = [
   {
     id: 'girl-hong-diem',
     imageUrl: '/assets/images/class12a1/hong_diem.jpg',
-    title: 'Hồng Diễm',
+    title: 'Phan Thị Hồng Diễm',
     caption: 'Hồng Diễm — cái tên đã nói lên sự xinh đẹp. Mong bạn luôn rạng rỡ và hạnh phúc mỗi ngày.',
     date: '20/10/2026',
     author: '12A1',
@@ -73,7 +73,7 @@ export const INITIAL_MEMORIES: MemoryPhoto[] = [
   {
     id: 'girl-hong-ngoc',
     imageUrl: '/assets/images/class12a1/hong_ngoc.jpg',
-    title: 'Hồng Ngọc',
+    title: 'Nguyễn Thị Hồng Ngọc',
     caption: 'Hồng Ngọc như viên ngọc quý giữa lớp. Chúc bạn một ngày 20/10 thật nhiều niềm vui!',
     date: '20/10/2026',
     author: '12A1',
@@ -81,7 +81,7 @@ export const INITIAL_MEMORIES: MemoryPhoto[] = [
   {
     id: 'girl-khanh-nhu',
     imageUrl: '/assets/images/class12a1/khanh_nhu.jpg',
-    title: 'Khánh Như',
+    title: 'Đinh Hoàng Khánh Như',
     caption: 'Khánh Như duyên dáng và đáng yêu. Cảm ơn bạn đã mang đến bao tiếng cười cho 12A1.',
     date: '20/10/2026',
     author: '12A1',
@@ -89,7 +89,7 @@ export const INITIAL_MEMORIES: MemoryPhoto[] = [
   {
     id: 'girl-l-thuy-duong',
     imageUrl: '/assets/images/class12a1/l_thuy_duong.jpg',
-    title: 'L. Thùy Dương',
+    title: 'Lại Thùy Dương',
     caption: 'Thùy Dương với nụ cười tươi rói. Chúc bạn luôn giữ được sự tự tin và ánh mắt lấp lánh ấy.',
     date: '20/10/2026',
     author: '12A1',
@@ -97,7 +97,7 @@ export const INITIAL_MEMORIES: MemoryPhoto[] = [
   {
     id: 'girl-minh-anh',
     imageUrl: '/assets/images/class12a1/minh_anh.jpg',
-    title: 'Minh Anh',
+    title: 'Hồ Minh Anh',
     caption: 'Minh Anh — sự thông minh và duyên dáng hòa quyện. 20/10 chúc bạn tỏa sáng hơn bao giờ hết!',
     date: '20/10/2026',
     author: '12A1',
@@ -105,7 +105,7 @@ export const INITIAL_MEMORIES: MemoryPhoto[] = [
   {
     id: 'girl-ngoc-thuy',
     imageUrl: '/assets/images/class12a1/ngoc_thuy.jpg',
-    title: 'Ngọc Thúy',
+    title: 'Hoàng Ngọc Thúy',
     caption: 'Ngọc Thúy dịu dàng như những cánh hoa anh đào. Mong bạn luôn được bao bọc bởi yêu thương.',
     date: '20/10/2026',
     author: '12A1',
@@ -113,7 +113,7 @@ export const INITIAL_MEMORIES: MemoryPhoto[] = [
   {
     id: 'girl-ngoc-anh',
     imageUrl: '/assets/images/class12a1/ngoc_anh.jpg',
-    title: 'Ngọc Ánh',
+    title: 'Nguyễn Ngọc Ánh',
     caption: 'Ngọc Ánh rực rỡ và đầy sức hút. Chúc bạn một ngày 20/10 thật đặc biệt và đáng nhớ!',
     date: '20/10/2026',
     author: '12A1',
@@ -121,7 +121,7 @@ export const INITIAL_MEMORIES: MemoryPhoto[] = [
   {
     id: 'girl-p-bao-ngoc',
     imageUrl: '/assets/images/class12a1/p_bao_ngoc.jpg',
-    title: 'P. Bảo Ngọc',
+    title: 'Nguyễn Phùng Bảo Ngọc',
     caption: 'Bảo Ngọc — viên ngọc quý giá của 12A1. Cảm ơn bạn vì những khoảnh khắc tuyệt vời bên nhau.',
     date: '20/10/2026',
     author: '12A1',
@@ -129,7 +129,7 @@ export const INITIAL_MEMORIES: MemoryPhoto[] = [
   {
     id: 'girl-phuong-linh',
     imageUrl: '/assets/images/class12a1/phuong_linh.jpg',
-    title: 'Phương Linh',
+    title: 'Phan Ngọc Phương Linh',
     caption: 'Phương Linh duyên dáng và thanh thoát. Chúc bạn luôn mạnh mẽ và tự do theo đuổi ước mơ.',
     date: '20/10/2026',
     author: '12A1',
@@ -137,7 +137,7 @@ export const INITIAL_MEMORIES: MemoryPhoto[] = [
   {
     id: 'girl-phuong-ngan',
     imageUrl: '/assets/images/class12a1/phuong_ngan.jpg',
-    title: 'Phương Ngân',
+    title: 'Lê Phương Ngân',
     caption: 'Phương Ngân với nụ cười tỏa nắng. 20/10 chúc bạn ngập tràn hạnh phúc và yêu thương!',
     date: '20/10/2026',
     author: '12A1',
@@ -145,7 +145,7 @@ export const INITIAL_MEMORIES: MemoryPhoto[] = [
   {
     id: 'girl-quynh-chi',
     imageUrl: '/assets/images/class12a1/quynh_chi.jpg',
-    title: 'Quỳnh Chi',
+    title: 'Phạm Quỳnh Chi',
     caption: 'Quỳnh Chi xinh đẹp và đầy cá tính. Mong bạn luôn giữ được ngọn lửa nhiệt huyết ấy.',
     date: '20/10/2026',
     author: '12A1',
@@ -153,15 +153,15 @@ export const INITIAL_MEMORIES: MemoryPhoto[] = [
   {
     id: 'girl-quynh-le',
     imageUrl: '/assets/images/class12a1/quynh_le.jpg',
-    title: 'Quỳnh Lê',
-    caption: 'Quỳnh Lê — sự dịu dàng và mạnh mẽ hòa quyện. Chúc bạn một ngày 20/10 thật rực rỡ!',
+    title: 'Lê Thị Quỳnh Lê',
+    caption: 'Quỳnh Lê — cô bạn nhỏ hay đeo khẩu trang nhưng 8 chấm eo eo đầy mạnh mẽ của lớp. Chúc bạn một ngày 20/10 thật rực rỡ!',
     date: '20/10/2026',
     author: '12A1',
   },
   {
     id: 'girl-quynh-nhu',
     imageUrl: '/assets/images/class12a1/quynh_nhu.jpg',
-    title: 'Quỳnh Như',
+    title: 'Nguyễn Quỳnh Như',
     caption: 'Quỳnh Như đáng yêu và ấm áp. Cảm ơn bạn đã làm cho thanh xuân 12A1 thêm phần rực rỡ.',
     date: '20/10/2026',
     author: '12A1',
@@ -169,7 +169,7 @@ export const INITIAL_MEMORIES: MemoryPhoto[] = [
   {
     id: 'girl-quynh-tram',
     imageUrl: '/assets/images/class12a1/quynh_tram.jpg',
-    title: 'Quỳnh Trâm',
+    title: 'Hoàng Quỳnh Trâm',
     caption: 'Quỳnh Trâm với ánh mắt trong trẻo. Chúc bạn luôn được yêu thương và tự do tỏa sáng!',
     date: '20/10/2026',
     author: '12A1',
@@ -177,7 +177,7 @@ export const INITIAL_MEMORIES: MemoryPhoto[] = [
   {
     id: 'girl-t-bao-ngoc',
     imageUrl: '/assets/images/class12a1/t_bao_ngoc.jpg',
-    title: 'T. Bảo Ngọc',
+    title: 'Trịnh Bảo Ngọc',
     caption: 'Bảo Ngọc — nụ cười và sự thân thiện luôn lan tỏa. 20/10 chúc bạn thật nhiều niềm vui!',
     date: '20/10/2026',
     author: '12A1',
@@ -185,7 +185,7 @@ export const INITIAL_MEMORIES: MemoryPhoto[] = [
   {
     id: 'girl-thuy-tram',
     imageUrl: '/assets/images/class12a1/thuy_tram.jpg',
-    title: 'Thùy Trâm',
+    title: 'Chế Đặng Thùy Trâm',
     caption: 'Thùy Trâm dịu dàng và đầy duyên dáng. Mong bạn luôn giữ được nét đẹp ấy trong lòng mình.',
     date: '20/10/2026',
     author: '12A1',
@@ -193,7 +193,7 @@ export const INITIAL_MEMORIES: MemoryPhoto[] = [
   {
     id: 'girl-thuy-hien',
     imageUrl: '/assets/images/class12a1/thuy_hien.jpg',
-    title: 'Thúy Hiền',
+    title: 'Lý Thị Thúy Hiền',
     caption: 'Thúy Hiền — sự hiền lành và xinh xắn. Chúc bạn một ngày 20/10 ngập tràn hoa và nụ cười!',
     date: '20/10/2026',
     author: '12A1',
@@ -201,7 +201,7 @@ export const INITIAL_MEMORIES: MemoryPhoto[] = [
   {
     id: 'girl-thuc-ky',
     imageUrl: '/assets/images/class12a1/thuc_ky.png',
-    title: 'Thục Kỳ',
+    title: 'Trương Thục Kỳ',
     caption: 'Thục Kỳ rạng rỡ và đầy cá tính. Cảm ơn bạn vì những kỷ niệm đẹp bên nhau suốt năm học này.',
     date: '20/10/2026',
     author: '12A1',
@@ -209,7 +209,7 @@ export const INITIAL_MEMORIES: MemoryPhoto[] = [
   {
     id: 'girl-thuy-tien',
     imageUrl: '/assets/images/class12a1/thuy_tien.jpg',
-    title: 'Thủy Tiên',
+    title: 'Nguyễn Ngọc Thủy Tiên',
     caption: 'Thủy Tiên như đóa hoa thanh khiết. Chúc bạn luôn tự tin và rực rỡ theo cách riêng của mình!',
     date: '20/10/2026',
     author: '12A1',
@@ -217,7 +217,7 @@ export const INITIAL_MEMORIES: MemoryPhoto[] = [
   {
     id: 'girl-tu-quyen',
     imageUrl: '/assets/images/class12a1/tu_quyen.jpg',
-    title: 'Tú Quyên',
+    title: 'Nguyễn Hoàng Tú Quyên',
     caption: 'Tú Quyên — nụ cười và sự ấm áp lan tỏa. 20/10 chúc bạn thật nhiều yêu thương và hạnh phúc!',
     date: '20/10/2026',
     author: '12A1',
