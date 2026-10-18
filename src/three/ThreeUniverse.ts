@@ -49,6 +49,8 @@ export class ThreeUniverse {
   private ring1!: THREE.Mesh;
   private ring2!: THREE.Mesh;
   private ring3!: THREE.Mesh;
+  private coreHeart!: THREE.Mesh;
+  private coreLabel!: THREE.Mesh;
 
   // 2. Petals InstancedMesh (Scene 2 & Ambient)
   private petalMesh!: THREE.InstancedMesh;
@@ -223,34 +225,116 @@ export class ThreeUniverse {
     this.orbGroup = new THREE.Group();
     this.orbGroup.position.set(0, 0, 0);
 
-    // Core pearl sphere with physical iridescence & transmission
-    const sphereGeo = new THREE.SphereGeometry(1.6, 64, 64);
+    // Soft translucent outer shell — more transparent so "12A1" reads clearly
+    const sphereGeo = new THREE.SphereGeometry(1.9, 64, 64);
     const sphereMat = new THREE.MeshPhysicalMaterial({
-      color: 0xffe4f0,
-      emissive: 0x4a0e2a,
-      emissiveIntensity: 0.5,
-      roughness: 0.12,
-      metalness: 0.1,
-      transmission: 0.65,
+      color: 0xffd6e8,
+      emissive: 0x5c1028,
+      emissiveIntensity: 0.28,
+      roughness: 0.25,
+      metalness: 0.04,
+      transmission: 0.9,
       thickness: 1.2,
-      clearcoat: 1.0,
-      clearcoatRoughness: 0.1,
-      reflectivity: 0.9,
+      clearcoat: 0.85,
+      clearcoatRoughness: 0.3,
+      reflectivity: 0.55,
+      transparent: true,
+      opacity: 0.55,
+      depthWrite: false,
     });
     this.coreSphere = new THREE.Mesh(sphereGeo, sphereMat);
     this.coreSphere.castShadow = true;
     this.orbGroup.add(this.coreSphere);
 
-    // Inner glowing core
-    const innerGeo = new THREE.SphereGeometry(1.0, 32, 32);
+    // Soft inner glow (fog-like core) — keep lighter so text isn't buried
+    const innerGeo = new THREE.SphereGeometry(1.05, 32, 32);
     const innerMat = new THREE.MeshBasicMaterial({
-      color: 0xff85c0,
+      color: 0xff4d7a,
       transparent: true,
-      opacity: 0.75,
+      opacity: 0.28,
       blending: THREE.AdditiveBlending,
+      depthWrite: false,
     });
     this.innerGlow = new THREE.Mesh(innerGeo, innerMat);
     this.orbGroup.add(this.innerGlow);
+
+    // Beating heart inside the core
+    const heartShape = new THREE.Shape();
+    heartShape.moveTo(0, 0.35);
+    heartShape.bezierCurveTo(0, 0.35, -0.1, 0.1, -0.35, 0.1);
+    heartShape.bezierCurveTo(-0.7, 0.1, -0.7, 0.45, -0.7, 0.45);
+    heartShape.bezierCurveTo(-0.7, 0.7, -0.4, 0.95, 0, 1.25);
+    heartShape.bezierCurveTo(0.4, 0.95, 0.7, 0.7, 0.7, 0.45);
+    heartShape.bezierCurveTo(0.7, 0.45, 0.7, 0.1, 0.35, 0.1);
+    heartShape.bezierCurveTo(0.1, 0.1, 0, 0.35, 0, 0.35);
+    const heartGeo = new THREE.ShapeGeometry(heartShape);
+    heartGeo.center();
+    heartGeo.scale(0.55, 0.55, 0.55);
+    const heartMat = new THREE.MeshBasicMaterial({
+      color: 0xff1a4d,
+      transparent: true,
+      opacity: 0.95,
+      side: THREE.DoubleSide,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+    });
+    this.coreHeart = new THREE.Mesh(heartGeo, heartMat);
+    this.coreHeart.position.set(0, -0.12, 0);
+    this.orbGroup.add(this.coreHeart);
+
+    // Bold solid red "12A1" — always readable inside the core
+    const labelCanvas = document.createElement('canvas');
+    labelCanvas.width = 1024;
+    labelCanvas.height = 512;
+    const lctx = labelCanvas.getContext('2d')!;
+    lctx.clearRect(0, 0, 1024, 512);
+
+    // Dark soft disc so text never blends into the scene
+    const disc = lctx.createRadialGradient(512, 256, 20, 512, 256, 240);
+    disc.addColorStop(0, 'rgba(80, 0, 20, 0.75)');
+    disc.addColorStop(0.55, 'rgba(60, 0, 15, 0.45)');
+    disc.addColorStop(1, 'rgba(40, 0, 10, 0)');
+    lctx.fillStyle = disc;
+    lctx.fillRect(0, 0, 1024, 512);
+
+    lctx.font = 'bold 220px "Plus Jakarta Sans", Arial Black, system-ui, sans-serif';
+    lctx.textAlign = 'center';
+    lctx.textBaseline = 'middle';
+
+    // Outer white stroke for contrast
+    lctx.lineWidth = 18;
+    lctx.strokeStyle = 'rgba(255, 255, 255, 0.95)';
+    lctx.strokeText('12A1', 512, 256);
+
+    // Strong red fill + glow
+    lctx.shadowColor = 'rgba(255, 20, 70, 1)';
+    lctx.shadowBlur = 40;
+    lctx.fillStyle = '#ff1744';
+    lctx.fillText('12A1', 512, 256);
+    lctx.shadowBlur = 0;
+
+    // Inner highlight stroke
+    lctx.lineWidth = 6;
+    lctx.strokeStyle = 'rgba(255, 200, 210, 0.9)';
+    lctx.strokeText('12A1', 512, 256);
+
+    const labelTex = new THREE.CanvasTexture(labelCanvas);
+    labelTex.colorSpace = THREE.SRGBColorSpace;
+    const labelMat = new THREE.MeshBasicMaterial({
+      map: labelTex,
+      transparent: true,
+      side: THREE.DoubleSide,
+      depthWrite: false,
+      depthTest: true,
+      // Normal blending = solid readable text (not washed out additive)
+      blending: THREE.NormalBlending,
+      opacity: 1,
+    });
+    // Larger plane so "12A1" fills the core clearly
+    this.coreLabel = new THREE.Mesh(new THREE.PlaneGeometry(3.2, 1.6), labelMat);
+    this.coreLabel.position.set(0, 0.15, 0);
+    this.coreLabel.renderOrder = 10;
+    this.orbGroup.add(this.coreLabel);
 
     // Saturn-like concentric orbital rings
     const ringMat1 = new THREE.MeshStandardMaterial({
@@ -455,29 +539,57 @@ export class ThreeUniverse {
     }
 
     this.galleryGroup = new THREE.Group();
-    this.galleryGroup.position.set(0, -0.5, 0);
+    this.galleryGroup.position.set(0, 0, 0);
 
     const textureLoader = new THREE.TextureLoader();
-    const count = memories.length;
-    const radius = 6.2;
+    const count = Math.max(memories.length, 1);
+
+    // --- Spherical net around the central orb ---
+    // Radius grows gently with photo count so frames never overlap
+    const baseRadius = 9.5;
+    const radius = baseRadius + Math.min(4.5, Math.max(0, (count - 12) * 0.18));
+
+    // Card size shrinks slightly when many photos so the sphere stays airy
+    const cardScale =
+      count <= 12 ? 1.0 :
+      count <= 20 ? 0.88 :
+      count <= 30 ? 0.78 :
+      count <= 45 ? 0.68 : 0.58;
+
+    const frameW = 2.55 * cardScale;
+    const frameH = 1.95 * cardScale;
+    const picW = 2.35 * cardScale;
+    const picH = 1.75 * cardScale;
+
+    // Fibonacci sphere for even distribution over the full sphere surface
+    const goldenAngle = Math.PI * (3 - Math.sqrt(5)); // ~2.399
 
     memories.forEach((photo, idx) => {
       const cardGroup = new THREE.Group();
 
-      // Curved angle around cylinder
-      const angle = (idx / Math.max(count, 1)) * Math.PI * 2;
-      const yOffset = (idx % 2 === 0 ? 0.6 : -0.6) + Math.sin(idx) * 0.3;
-      const x = Math.sin(angle) * radius;
-      const z = Math.cos(angle) * radius;
+      // Evenly spaced points on a sphere
+      const t = (idx + 0.5) / count;
+      const y = 1 - 2 * t;                    // -1 → +1
+      const rAtY = Math.sqrt(Math.max(0, 1 - y * y));
+      const theta = goldenAngle * idx;
 
-      const basePos = new THREE.Vector3(x, yOffset, z);
-      const baseRot = new THREE.Euler(0, angle + Math.PI, 0);
+      const x = Math.cos(theta) * rAtY * radius;
+      const z = Math.sin(theta) * rAtY * radius;
+      const posY = y * radius * 0.92; // slightly flatten vertically for nicer framing
 
+      const basePos = new THREE.Vector3(x, posY, z);
+
+      // Face the card toward the center (orb), so every photo looks inward
+      const lookAtCenter = new THREE.Vector3(0, 0, 0);
       cardGroup.position.copy(basePos);
-      cardGroup.rotation.copy(baseRot);
+      cardGroup.lookAt(lookAtCenter);
+      // Flip 180° so the photo face points outward toward the camera/user
+      cardGroup.rotateY(Math.PI);
 
-      // 1. Backing frame with rose gold rim
-      const frameGeo = new THREE.BoxGeometry(2.6, 2.0, 0.08);
+      const baseRot = cardGroup.rotation.clone();
+
+      // 1. Backing frame (thin box)
+      const frameGeo = new THREE.BoxGeometry(frameW, frameH, 0.08);
       const frameMat = new THREE.MeshPhysicalMaterial({
         color: 0x3d0c26,
         metalness: 0.85,
@@ -487,46 +599,68 @@ export class ThreeUniverse {
       const frameMesh = new THREE.Mesh(frameGeo, frameMat);
       cardGroup.add(frameMesh);
 
-      // 2. Front picture plane
-      const picGeo = new THREE.PlaneGeometry(2.4, 1.8);
+      // 2. FRONT face — photo
+      const picGeo = new THREE.PlaneGeometry(picW, picH);
       const defaultTexture = this.createFallbackCanvasTexture(photo.title);
       const picMat = new THREE.MeshBasicMaterial({
         map: defaultTexture,
         side: THREE.FrontSide,
       });
 
-      // Load actual photo asynchronously
       textureLoader.load(
         photo.imageUrl,
         (tex) => {
           tex.colorSpace = THREE.SRGBColorSpace;
           tex.anisotropy = this.renderer.capabilities.getMaxAnisotropy();
+          const img = tex.image as HTMLImageElement;
+          if (img && img.width && img.height) {
+            const imgAspect = img.width / img.height;
+            const frameAspect = picW / picH;
+            if (imgAspect > frameAspect) {
+              const scale = frameAspect / imgAspect;
+              tex.repeat.set(scale, 1);
+              tex.offset.set((1 - scale) / 2, 0);
+            } else {
+              const scale = imgAspect / frameAspect;
+              tex.repeat.set(1, scale);
+              tex.offset.set(0, (1 - scale) / 2);
+            }
+          }
           picMat.map = tex;
           picMat.needsUpdate = true;
         },
         undefined,
-        () => {
-          // Keep fallback canvas texture on load error
-        }
+        () => { /* keep fallback */ }
       );
 
       const picMesh = new THREE.Mesh(picGeo, picMat);
       picMesh.position.z = 0.05;
       cardGroup.add(picMesh);
 
-      // 3. Glowing edge border
+      // 3. BACK face — elegant reverse with name + 12A1 so frames look good from all angles
+      const backTex = this.createCardBackTexture(photo.title);
+      const backMat = new THREE.MeshBasicMaterial({
+        map: backTex,
+        side: THREE.FrontSide,
+      });
+      const backMesh = new THREE.Mesh(picGeo.clone(), backMat);
+      backMesh.position.z = -0.05;
+      backMesh.rotation.y = Math.PI; // face outward on the back
+      cardGroup.add(backMesh);
+
+      // 4. Glowing edge
       const edgeGeo = new THREE.EdgesGeometry(frameGeo);
       const edgeMat = new THREE.LineBasicMaterial({
         color: 0xf472b6,
         transparent: true,
-        opacity: 0.7,
+        opacity: 0.75,
       });
       const edgeLine = new THREE.LineSegments(edgeGeo, edgeMat);
       cardGroup.add(edgeLine);
 
-      // Tag for raycasting
       frameMesh.userData = { photoId: photo.id, photo };
       picMesh.userData = { photoId: photo.id, photo };
+      backMesh.userData = { photoId: photo.id, photo };
 
       this.galleryGroup.add(cardGroup);
       this.cardMeshes.push({
@@ -561,6 +695,54 @@ export class ThreeUniverse {
     ctx.font = '20px sans-serif';
     ctx.fillStyle = '#fce7f3';
     ctx.fillText(title.substring(0, 24), 256, 220);
+
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.colorSpace = THREE.SRGBColorSpace;
+    return texture;
+  }
+
+  /** Elegant reverse side of each memory card */
+  private createCardBackTexture(title: string): THREE.CanvasTexture {
+    const canvas = document.createElement('canvas');
+    canvas.width = 512;
+    canvas.height = 384;
+    const ctx = canvas.getContext('2d')!;
+
+    const grad = ctx.createLinearGradient(0, 0, 512, 384);
+    grad.addColorStop(0, '#4a0e2a');
+    grad.addColorStop(0.5, '#831843');
+    grad.addColorStop(1, '#3b0764');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 512, 384);
+
+    // soft vignette
+    const vig = ctx.createRadialGradient(256, 192, 40, 256, 192, 280);
+    vig.addColorStop(0, 'rgba(255,100,150,0.25)');
+    vig.addColorStop(1, 'rgba(0,0,0,0.35)');
+    ctx.fillStyle = vig;
+    ctx.fillRect(0, 0, 512, 384);
+
+    // decorative border
+    ctx.strokeStyle = 'rgba(252, 231, 243, 0.55)';
+    ctx.lineWidth = 6;
+    ctx.strokeRect(18, 18, 476, 348);
+
+    ctx.fillStyle = '#fda4af';
+    ctx.font = 'bold 36px "Plus Jakarta Sans", system-ui, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(title.substring(0, 22), 256, 160);
+
+    ctx.fillStyle = '#ff1a4d';
+    ctx.font = 'bold 52px "Plus Jakarta Sans", system-ui, sans-serif';
+    ctx.shadowColor = 'rgba(255, 30, 80, 0.8)';
+    ctx.shadowBlur = 16;
+    ctx.fillText('12A1', 256, 230);
+    ctx.shadowBlur = 0;
+
+    ctx.fillStyle = 'rgba(252, 231, 243, 0.7)';
+    ctx.font = '18px "Plus Jakarta Sans", system-ui, sans-serif';
+    ctx.fillText('20/10 · Yêu thương', 256, 290);
 
     const texture = new THREE.CanvasTexture(canvas);
     texture.colorSpace = THREE.SRGBColorSpace;
@@ -945,8 +1127,8 @@ export class ThreeUniverse {
         this.targetCameraLookAt.set(0, 0, 0);
         break;
       case 3:
-        // Memory Constellation: Wide viewpoint overlooking cylindrical photo wall
-        this.targetCameraPos.set(0, 0.5, 9.8);
+        // Memory Constellation: pull back to see the full spherical photo net
+        this.targetCameraPos.set(0, 1.2, 16.5);
         this.targetCameraLookAt.set(0, 0, 0);
         break;
       case 4:
@@ -1127,24 +1309,50 @@ export class ThreeUniverse {
       this.controls.update();
     }
 
-    // 4. Animate Celestial Orb & Rings
+    // 4. Animate Celestial Orb, soft core, beating heart & 12A1 label
     if (this.orbGroup) {
       if (!this.isGrandBlooming) {
-        const orbScale = beatPulse;
+        const orbScale = 1 + (beatPulse - 1) * 0.35; // gentler shell pulse
         this.coreSphere.scale.set(orbScale, orbScale, orbScale);
         this.innerGlow.scale.set(orbScale * 1.05, orbScale * 1.05, orbScale * 1.05);
       }
 
+      // Only rings spin — shell / heart / 12A1 stay stable so text is readable
       this.ring1.rotation.z += 0.008 * (1.0 + audio.energy);
       this.ring2.rotation.y += 0.006 * (1.0 + audio.energy);
       this.ring3.rotation.x += 0.004;
 
-      this.orbGroup.rotation.y = elapsed * 0.15;
-
-      // Make orb more luminous / inviting in Scene 4
-      if (this.currentScene === 4 && this.innerGlow) {
+      // Soft inner glow breathe (keep low so it doesn't hide text)
+      if (this.innerGlow) {
         const glowMat = this.innerGlow.material as THREE.MeshBasicMaterial;
-        glowMat.opacity = 0.75 + Math.sin(elapsed * 2.5) * 0.2;
+        glowMat.opacity = 0.22 + Math.sin(elapsed * 1.6) * 0.08 + audio.bass * 0.1;
+      }
+
+      // Heartbeat under the text
+      if (this.coreHeart) {
+        const t = elapsed * 2.4;
+        const beat =
+          0.85 +
+          Math.max(0, Math.sin(t)) * 0.16 +
+          Math.max(0, Math.sin(t * 2.1 - 0.6)) * 0.1 +
+          audio.bass * 0.1;
+        this.coreHeart.scale.setScalar(beat);
+        this.coreHeart.rotation.z = Math.sin(elapsed * 0.6) * 0.06;
+        const hm = this.coreHeart.material as THREE.MeshBasicMaterial;
+        hm.opacity = 0.7 + Math.sin(t) * 0.2;
+      }
+
+      // "12A1" always faces camera, stays locked in the core center
+      if (this.coreLabel) {
+        this.coreLabel.position.set(0, 0.12, 0);
+        this.coreLabel.lookAt(this.camera.position);
+        // subtle scale pulse only — never flies away
+        const labelPulse = 1 + Math.sin(elapsed * 1.2) * 0.03;
+        this.coreLabel.scale.setScalar(labelPulse);
+        this.coreLabel.visible = this.currentScene <= 4; // hide when camera flies to letter/finale
+      }
+      if (this.coreHeart) {
+        this.coreHeart.visible = this.currentScene <= 4;
       }
     }
 
@@ -1174,11 +1382,12 @@ export class ThreeUniverse {
       this.petalMesh.instanceMatrix.needsUpdate = true;
     }
 
-    // 6. Animate Memory Constellation Cylinder (Scene 3)
+    // 6. Animate Memory Constellation — slow continuous 360° around the core
     if (this.galleryGroup) {
-      // Gentle auto-rotation unless interacting
-      if (this.currentScene === 3 && !this.hoveredCard) {
-        this.galleryGroup.rotation.y += 0.0035;
+      // Always rotate gently so both faces of frames are visible over time
+      if (!this.hoveredCard) {
+        this.galleryGroup.rotation.y += 0.0022; // ~80s per full turn
+        this.galleryGroup.rotation.x = Math.sin(elapsed * 0.12) * 0.04; // soft tilt
       }
 
       this.cardMeshes.forEach((card) => {
